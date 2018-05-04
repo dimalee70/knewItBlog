@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using blog.Models;
+using knewItBlog.Models;
+using knewItBlog.EmpDataContext;
 
 namespace blog
 {
@@ -23,16 +25,12 @@ namespace blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>{
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-            .AddCookie();
             services.AddMvc();
-            services.Add(new ServiceDescriptor(typeof(TestDBContext),new TestDBContext(Configuration
-            .GetConnectionString("DefaultConnection"))));
-            // services.AddDbContext
+            services.AddDbContext<AppDataContext>(option => option.UseSqlServer(Configuration
+            .GetConnectionString("DefaultConnection")));
+            // services.Add(new ServiceDescriptor(typeof(TestDBContext),new TestDBContext(Configuration
+            // .GetConnectionString("DefaultConnection"))));
+            // // services.AddDbContext
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
