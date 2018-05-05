@@ -20,11 +20,11 @@ namespace blog.Controllers
             ViewData["NumTimes"] = numTimes;
             return View();
         }
-        public ActionResult Person()
-        {
-            User user = new User(){name = "Dmitriy", surname = "Li",age=25};
-            return View(user);
-        }
+        // public ActionResult Person()
+        // {
+        //     User user = new User(){name = "Dmitriy", surname = "Li",age=25};
+        //     return View(user);
+        // }
         // public IActionResult Welcome(string name, int numTimes = 1)
         // {
         //     ViewData["Message"] = "Hello " + name;
