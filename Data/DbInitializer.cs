@@ -10,7 +10,11 @@ namespace knewItBlog.Data
         public static void Initialize(AppDataContext context)
         {
             context.Database.EnsureCreated();
-            // Look for any students.
+            // Look for any students.  
+            if (context.User_Statuses.Any())
+            {
+                return;   // DB has been seeded
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
             var user_statuses = new User_Status[]
             {
@@ -21,8 +25,13 @@ namespace knewItBlog.Data
             {
                 context.User_Statuses.Add(u_s);
             }
-            context.SaveChanges();
+            context.SaveChanges();                                                                                                                                                                          
             
+                        // Look for any students.
+            // if (context.Blog_Statuses.Any())
+            // {
+            //     return;   // DB has been seeded
+            // }
             var blog_statuses = new Blog_Status[]
             {
                 new Blog_Status{blog_status="Accept"},
@@ -34,6 +43,12 @@ namespace knewItBlog.Data
                 context.Blog_Statuses.Add(b_s);
             }
             context.SaveChanges();
+
+                        // Look for any students.
+            if (context.Users.Any())
+            {
+                return;   // DB has been seeded
+            }
 
             var users = new User{Name="Dmitriy",Login="dmitriy",Password="1234DimaLi",User_status_id=1};
             context.Users.Add(users);

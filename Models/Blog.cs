@@ -16,8 +16,8 @@ namespace knewItBlog.Models
         public int User_Id{get;set;}
         public int Blog_Status_Id{get;set;}
 
-        public User Users{get;set;}
-        public Blog_Status Blog_Statuses{get;set;}
+        // public User Users{get;set;}
+        // public Blog_Status Blog_Statuses{get;set;}
 
     
     }

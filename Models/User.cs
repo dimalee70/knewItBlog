@@ -20,10 +20,10 @@ namespace knewItBlog.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        public DateTime DateRegister { get; set;} = DateTime.Now;
+        public DateTime DateRegister { get; set;} = Convert.ToDateTime(DateTime.Now.GetDateTimeFormats()[5]); //ToString("yyyy-MM-dd");
 
         public int User_status_id{get;set;}
-        public User_Status User_Statuses{get;set;}
+        // public User_Status User_Statuses{get;set;}
         public ICollection<Blog> Blogs{get;set;}
     }
 }

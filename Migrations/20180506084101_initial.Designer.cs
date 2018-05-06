@@ -10,8 +10,8 @@ using knewItBlog.EmpDataContext;
 namespace blog.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20180505192420_initknewitblog")]
-    partial class initknewitblog
+    [Migration("20180506084101_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,9 +25,9 @@ namespace blog.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Blog_Status_Id");
+                    b.Property<int?>("Blog_StatusId");
 
-                    b.Property<int?>("Blog_StatusesId");
+                    b.Property<int>("Blog_Status_Id");
 
                     b.Property<DateTime>("DateWriting");
 
@@ -37,15 +37,15 @@ namespace blog.Migrations
                     b.Property<string>("Title")
                         .HasMaxLength(100);
 
-                    b.Property<int>("User_Id");
+                    b.Property<int?>("UserId");
 
-                    b.Property<int?>("UsersId");
+                    b.Property<int>("User_Id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Blog_StatusesId");
+                    b.HasIndex("Blog_StatusId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Blogs");
                 });
@@ -98,13 +98,13 @@ namespace blog.Migrations
                         .IsRequired()
                         .HasMaxLength(18);
 
-                    b.Property<int?>("User_StatusesId");
+                    b.Property<int?>("User_StatusId");
 
                     b.Property<int>("User_status_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("User_StatusesId");
+                    b.HasIndex("User_StatusId");
 
                     b.ToTable("Users");
                 });
@@ -125,20 +125,20 @@ namespace blog.Migrations
 
             modelBuilder.Entity("knewItBlog.Models.Blog", b =>
                 {
-                    b.HasOne("knewItBlog.Models.Blog_Status", "Blog_Statuses")
+                    b.HasOne("knewItBlog.Models.Blog_Status")
                         .WithMany("Blogs")
-                        .HasForeignKey("Blog_StatusesId");
+                        .HasForeignKey("Blog_StatusId");
 
-                    b.HasOne("knewItBlog.Models.User", "Users")
+                    b.HasOne("knewItBlog.Models.User")
                         .WithMany("Blogs")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("knewItBlog.Models.User", b =>
                 {
-                    b.HasOne("knewItBlog.Models.User_Status", "User_Statuses")
+                    b.HasOne("knewItBlog.Models.User_Status")
                         .WithMany("Users")
-                        .HasForeignKey("User_StatusesId");
+                        .HasForeignKey("User_StatusId");
                 });
 #pragma warning restore 612, 618
         }

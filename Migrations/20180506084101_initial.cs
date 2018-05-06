@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace blog.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,20 @@ namespace blog.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blog_Statuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Age = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,14 +60,14 @@ namespace blog.Migrations
                     Password = table.Column<string>(maxLength: 18, nullable: false),
                     DateRegister = table.Column<DateTime>(nullable: false),
                     User_status_id = table.Column<int>(nullable: false),
-                    User_StatusesId = table.Column<int>(nullable: true)
+                    User_StatusId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_User_Statuses_User_StatusesId",
-                        column: x => x.User_StatusesId,
+                        name: "FK_Users_User_Statuses_User_StatusId",
+                        column: x => x.User_StatusId,
                         principalTable: "User_Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -70,46 +84,49 @@ namespace blog.Migrations
                     DateWriting = table.Column<DateTime>(nullable: false),
                     User_Id = table.Column<int>(nullable: false),
                     Blog_Status_Id = table.Column<int>(nullable: false),
-                    UsersId = table.Column<int>(nullable: true),
-                    Blog_StatusesId = table.Column<int>(nullable: true)
+                    Blog_StatusId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Blogs_Blog_Statuses_Blog_StatusesId",
-                        column: x => x.Blog_StatusesId,
+                        name: "FK_Blogs_Blog_Statuses_Blog_StatusId",
+                        column: x => x.Blog_StatusId,
                         principalTable: "Blog_Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Blogs_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_Blogs_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Blogs_Blog_StatusesId",
+                name: "IX_Blogs_Blog_StatusId",
                 table: "Blogs",
-                column: "Blog_StatusesId");
+                column: "Blog_StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Blogs_UsersId",
+                name: "IX_Blogs_UserId",
                 table: "Blogs",
-                column: "UsersId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_User_StatusesId",
+                name: "IX_Users_User_StatusId",
                 table: "Users",
-                column: "User_StatusesId");
+                column: "User_StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Blogs");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Blog_Statuses");
